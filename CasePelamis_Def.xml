@@ -16,7 +16,7 @@
             <mkorientfluid mk="0" orient="Xyz" />
         </mkconfig>
         <geometry>
-            <definition dp="0.05" units_comment="metres (m)">
+            <definition dp="0.025" units_comment="metres (m)">
                 <pointmin x="2.8" y="-3" z="-0.1" />
                 <pointmax x="25" y="3.2" z="7" />
             </definition>
@@ -33,7 +33,7 @@
 				-->
                 <list name="Element" printcall="false">
 				<setdrawmode mode="full" /> 
-						<setmkbound mk="1" /> 
+						<setmkbound mk="0" /> 
                     <drawfilestl file="geometry.stl">
 					<!--<drawfilestl file="sphere_arm.stl">
                          <drawscale x="0.001" y="0.001" z="0.001" /> -->
@@ -71,7 +71,7 @@
                     <!-- First element -->
                     <!--<setmkbound mk="0" />
                     <runlist name="arm" /> -->
-					<setmkbound mk="1" />
+					<setmkbound mk="0" />
                     <runlist name="Element" />
                     <!-- Second element 
                     <setmkbound mk="1" />
@@ -101,7 +101,7 @@
         <floatings>
             <!--<floating mkbound="0" relativeweight="0.5" />
 			<floating mkbound="1" relativeweight="0.5" /> -->
-			<floating mkbound="1">
+			<floating mkbound="0">
 				<massbody value="220" />  
 				<center x="8.85" y="0" z="2.9" />
                 <inertia x="1.0" y="124.26" z="1.0" />
@@ -127,19 +127,8 @@
             <chrono>
                 <_savedata value="0.02" comment="Saves CSV with data exchange for each time interval (0=all steps)" />
                 <schemescale value="1" comment="Scale used to create the initial scheme of Chrono objects (default=1)" />
-                <!--<bodyfloating id="arm" mkbound="0" />-->
-				<bodyfloating id="Element" mkbound="1" modelfile="AutoActual"/>
+				<bodyfloating id="Element" mkbound="0" modelfile="AutoActual"/>
                 
-				
-				
-				<!-- <link_pointline idbody1="Element">
-                    <slidingvector x="0" y="0" z="1" comment="Sliding vector direction" />
-                    <rotpoint x="5.8" y="0" z="3" comment="Sliding point in the body" />
-                    <!--<slidingvector x="0" y="0" z="1" comment="Sliding vector direction" />
-					 <rotpoint x="5.0" y="0" z="3.32" comment="Sliding point in the body" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_pointline> -->
 				
 				
                 <link_hinge idbody1="Element">
@@ -149,41 +138,7 @@
                     <damping value="0" comment="Torsional damping [Nms/rad]" />
                 </link_hinge> 
 				
-				<!--
-				<link_hinge idbody1="arm" idbody2="Element">
-                    <rotpoint x="8" y="0" z="3.3" comment="Point for rotation" />
-                    <rotvector x="0" y="1" z="0" comment="Vector direction for rotation" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_hinge> 
-				-->
 				
-				<!-- <link_spheric idbody1="arm">
-                    <rotpoint x="3.7" y="0" z="5" comment="Point for rotation" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_spheric>
-                <link_spheric idbody1="arm" idbody2="Element">
-                    <rotpoint x="8" y="0" z="3.3" comment="Point for rotation" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_spheric>
-				
-				
-				
-				
-                <!--<link_hinge idbody1="arm1" idbody2="arm2">
-                    <rotpoint x="8.45" y="0" z="1.5" comment="Point for rotation" />
-                    <rotvector x="0" y="1" z="0" comment="Vector direction for rotation" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_hinge>
-                <link_hinge idbody1="arm2" idbody2="arm3">
-                    <rotpoint x="9.75" y="0" z="1.5" comment="Point for rotation" />
-                    <rotvector x="0" y="1" z="0" comment="Vector direction for rotation" />
-                    <stiffness value="0" comment="Torsional stiffness [Nm/rad]" />
-                    <damping value="0" comment="Torsional damping [Nms/rad]" />
-                </link_hinge> -->
             </chrono>
             <wavepaddles>
                 <piston>
@@ -275,11 +230,11 @@
 		<force name="Force1">
 			<savevtkpart value="true" comment="Creates VTK files for each PART (default=default.savevtkpart)" />
 			<output value="true" comment="Creates CSV files of measurements (default=default.output)" />
-			<target mkbound="1" comment="Indicates the mkbound of selected particles to compute forces" />
+			<target mkbound="10" comment="Indicates the mkbound of selected particles to compute forces" />
 		</force>
 		
 		
-		</gauges>	
+		</gauges>
 			
         </special>
         <parameters>
@@ -303,7 +258,7 @@
             <parameter key="DtFixed" value="0" comment="Fixed Dt value. Use 0 to disable (default=disabled)" units_comment="seconds" />
             <parameter key="DtFixedFile" value="NONE" comment="Dt values are loaded from file. Use NONE to disable (default=disabled)" units_comment="milliseconds (ms)" />
             <parameter key="DtAllParticles" value="0" comment="Velocity of particles used to calculate DT. 1:All, 0:Only fluid/floating (default=0)" />
-            <parameter key="TimeMax" value="0.5" comment="Time of simulation" units_comment="seconds" />
+            <parameter key="TimeMax" value="10" comment="Time of simulation" units_comment="seconds" />
             <parameter key="TimeOut" value="0.05" comment="Time out data" units_comment="seconds" />
             <parameter key="PartsOutMax" value="1" comment="%/100 of fluid particles allowed to be excluded from domain (default=1)" units_comment="decimal" />
             <parameter key="RhopOutMin" value="700" comment="Minimum rhop valid (default=700)" units_comment="kg/m^3" />
