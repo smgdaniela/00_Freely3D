@@ -66,10 +66,12 @@ if not "%ERRORLEVEL%" == "0" goto fail
 rem -dirin data -savevtk data/particles/PartFluidOut -SaveResume data/particles/_ResumeFluidOut
 
 set dirout2=%dirout%\boundary
-%boundaryvtk% -loadvtk AutoActual -motiondata %diroutdata% -savevtkdata %dirout2%/Pelamis -onlytype:floating
+%boundaryvtk% -loadvtk AutoActual -motiondata %diroutdata% -savevtkdata %dirout2%/Pelamis -onlytype:-all,+fixed
 if not "%ERRORLEVEL%" == "0" goto fail
 
-
+set dirout2=%dirout%\forces
+%computeforces% -dirin %diroutdata% -savecsv %dirout2%/Forces -onlymk:10 -momentaxis:6.375:0.0:4.65:6.9:0.0:4.2
+if not "%ERRORLEVEL%" == "0" goto fail
 
 :success
 echo All done

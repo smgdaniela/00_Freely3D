@@ -16,9 +16,9 @@
             <mkorientfluid mk="0" orient="Xyz" />
         </mkconfig>
         <geometry>
-            <definition dp="0.025" units_comment="metres (m)">
+            <definition dp="0.05" units_comment="metres (m)">
                 <pointmin x="2.8" y="-3" z="-0.1" />
-                <pointmax x="25" y="3.2" z="7" />
+                <pointmax x="28" y="3.2" z="7" />
             </definition>
             <commands>
 			   <!--
@@ -33,7 +33,7 @@
 				-->
                 <list name="Element" printcall="false">
 				<setdrawmode mode="full" /> 
-						<setmkbound mk="0" /> 
+						<setmkbound mk="10" /> 
                     <drawfilestl file="geometry.stl">
 					<!--<drawfilestl file="sphere_arm.stl">
                          <drawscale x="0.001" y="0.001" z="0.001" /> -->
@@ -50,14 +50,14 @@
                     <setshapemode>real | bound</setshapemode>
                     <setdrawmode mode="full" />
                     <!-- Wavemaker -->
-                    <setmkbound mk="10" />
+                    <setmkbound mk="11" />
                     <drawbox>
                         <boxfill>solid</boxfill>
                         <point x="2.96" y="-3" z="0" />
                         <size x="0.03" y="6" z="6" />
                     </drawbox>
                     <!-- Beach boundary -->
-                    <setmkbound mk="11" />
+                    <setmkbound mk="12" />
                     <drawprism mask="5|6">
                         <point x="30" y="-3" z="5" />
                         <point x="16" y="-3" z="0" />
@@ -71,7 +71,7 @@
                     <!-- First element -->
                     <!--<setmkbound mk="0" />
                     <runlist name="arm" /> -->
-					<setmkbound mk="0" />
+					<setmkbound mk="10" />
                     <runlist name="Element" />
                     <!-- Second element 
                     <setmkbound mk="1" />
@@ -101,7 +101,7 @@
         <floatings>
             <!--<floating mkbound="0" relativeweight="0.5" />
 			<floating mkbound="1" relativeweight="0.5" /> -->
-			<floating mkbound="0">
+			<floating mkbound="10">
 				<massbody value="220" />  
 				<center x="8.85" y="0" z="2.9" />
                 <inertia x="1.0" y="124.26" z="1.0" />
@@ -115,7 +115,7 @@
 			
         </floatings>
         <motion>
-            <objreal ref="10">
+            <objreal ref="11">
                 <!-- No movement is pre-assigned to the piston -->
                 <begin mov="1" start="0" />
                 <mvnull id="1" />
@@ -127,7 +127,7 @@
             <chrono>
                 <_savedata value="0.02" comment="Saves CSV with data exchange for each time interval (0=all steps)" />
                 <schemescale value="1" comment="Scale used to create the initial scheme of Chrono objects (default=1)" />
-				<bodyfloating id="Element" mkbound="0" modelfile="AutoActual"/>
+				<bodyfloating id="Element" mkbound="10" modelfile="AutoActual"/>
                 
 				
 				
@@ -142,7 +142,7 @@
             </chrono>
             <wavepaddles>
                 <piston>
-                    <mkbound value="10" comment="Mk-Bound of selected particles" />
+                    <mkbound value="11" comment="Mk-Bound of selected particles" />
                     <start value="0" comment="Start time (default=0)" />
                     <duration value="0" comment="Movement duration, Zero is the end of simulation (default=0)" />
                     <depth value="3" comment="Water depth (default=0)" />
@@ -226,12 +226,12 @@
 			<height value="6" comment="Maximum height to check" units_comment="m" />
 			<distlimit coefdp="1" comment="Radio to check particles (coefdp*Dp)" />
 		</maxz>
-		<!-- Calculates force sumation on selected fixed or moving particles (using only fluid particles). -->
+		<!-- Calculates force sumation on selected fixed or moving particles (using only fluid particles). 
 		<force name="Force1">
 			<savevtkpart value="true" comment="Creates VTK files for each PART (default=default.savevtkpart)" />
 			<output value="true" comment="Creates CSV files of measurements (default=default.output)" />
 			<target mkbound="10" comment="Indicates the mkbound of selected particles to compute forces" />
-		</force>
+		</force> -->
 		
 		
 		</gauges>
@@ -258,8 +258,8 @@
             <parameter key="DtFixed" value="0" comment="Fixed Dt value. Use 0 to disable (default=disabled)" units_comment="seconds" />
             <parameter key="DtFixedFile" value="NONE" comment="Dt values are loaded from file. Use NONE to disable (default=disabled)" units_comment="milliseconds (ms)" />
             <parameter key="DtAllParticles" value="0" comment="Velocity of particles used to calculate DT. 1:All, 0:Only fluid/floating (default=0)" />
-            <parameter key="TimeMax" value="10" comment="Time of simulation" units_comment="seconds" />
-            <parameter key="TimeOut" value="0.05" comment="Time out data" units_comment="seconds" />
+            <parameter key="TimeMax" value="0.05" comment="Time of simulation" units_comment="seconds" />
+            <parameter key="TimeOut" value="0.001" comment="Time out data" units_comment="seconds" />
             <parameter key="PartsOutMax" value="1" comment="%/100 of fluid particles allowed to be excluded from domain (default=1)" units_comment="decimal" />
             <parameter key="RhopOutMin" value="700" comment="Minimum rhop valid (default=700)" units_comment="kg/m^3" />
             <parameter key="RhopOutMax" value="1300" comment="Maximum rhop valid (default=1300)" units_comment="kg/m^3" />

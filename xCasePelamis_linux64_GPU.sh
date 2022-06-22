@@ -73,7 +73,11 @@ ${partvtkout} -dirin ${diroutdata} -savevtk ${dirout2}/PartFluidOut -SaveResume 
 if [ $? -ne 0 ] ; then fail; fi
 
 export dirout2=${dirout}/boundary
-${boundaryvtk} -loadvtk AutoActual -motiondata ${diroutdata} -savevtkdata ${dirout2}/Pelamis -onlytype:floating
+${boundaryvtk} -loadvtk AutoActual -motiondata ${diroutdata} -savevtkdata ${dirout2}/Pelamis -onlytype:-all,+fixed
+if [ $? -ne 0 ] ; then fail; fi
+
+export dirout2=${dirout}/forces
+${computeforces} -dirin ${diroutdata} -savecsv ${dirout2}/Forces -onlymk:10 -momentaxis:6.375:0.0:4.65:6.9:0.0:4.2
 if [ $? -ne 0 ] ; then fail; fi
 
 fi
